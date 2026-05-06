@@ -7819,3 +7819,9 @@ org.eclipse.core.runtime.CoreException: Launch configuration CartServiceApplicat
 2026-05-06 17:09:44,416 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2026-05-06 17:09:44,416 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2026-05-06 17:09:44,418 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Major-Project\FoodOrderingSystem\APIGateway\src\test\resources
+2026-05-06 17:19:03,777 [Worker-9: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.server:EurekaServerDummy:0.0.1-SNAPSHOT @ C:\Major-Project\FoodOrderingSystem\EurekaServerDummy\pom.xml.
+2026-05-06 17:19:06,174 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2026-05-06 17:19:06,179 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2026-05-06 17:19:06,204 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Major-Project\FoodOrderingSystem\EurekaServerDummy\src\test\resources
+2026-05-06 17:19:06,206 [Worker-9: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of EurekaServerDummy
+2026-05-06 17:19:06,208 [Worker-9: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for EurekaServerDummy
