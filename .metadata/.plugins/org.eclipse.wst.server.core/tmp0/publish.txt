@@ -1,3 +1,0 @@
-#Tomcat publish data
-#Wed Apr 01 12:43:21 IST 2026
-org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\yadav\\.m2\\repository\\org\\apache\\tomcat\\embed\\tomcat-embed-el\\11.0.20\\tomcat-embed-el-11.0.20.jar=WEB-INF/lib/tomcat-embed-el-11.0.20.jar

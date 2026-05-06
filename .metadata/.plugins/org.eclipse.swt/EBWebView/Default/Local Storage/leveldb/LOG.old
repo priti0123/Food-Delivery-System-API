@@ -1,3 +1,2 @@
-2026/04/10-16:50:11.408 2240 Reusing MANIFEST C:\Major-Project\FoodOrderingSystem\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
-2026/04/10-16:50:11.473 2240 Recovering log #3
-2026/04/10-16:50:11.474 2240 Reusing old log C:\Major-Project\FoodOrderingSystem\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/000003.log 
+2026/05/06-16:45:22.564 3d60 Creating DB C:\Major-Project\FoodOrderingSystem\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb since it was missing.
+2026/05/06-16:45:22.614 3d60 Reusing MANIFEST C:\Major-Project\FoodOrderingSystem\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
