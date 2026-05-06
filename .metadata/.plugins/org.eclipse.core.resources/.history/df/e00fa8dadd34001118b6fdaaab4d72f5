@@ -1,0 +1,9 @@
+package com.server.client;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+public interface RestaurantClient {
+	   
+	 @GetMapping("/restaurant/menu")
+       public String getMenu();
+} 

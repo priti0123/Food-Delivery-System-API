@@ -1,0 +1,10 @@
+package com.food.order.dto;
+
+
+public class OrderDetails {
+	
+	 private Long Orderid;
+	 private Integer userId;
+	 private Double totalAmount;
+	
+}

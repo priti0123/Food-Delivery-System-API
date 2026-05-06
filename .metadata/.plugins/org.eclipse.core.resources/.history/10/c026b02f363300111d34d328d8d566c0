@@ -1,0 +1,16 @@
+package com.food.menu.entity;
+
+import java.awt.MenuItem;
+import java.util.List;
+
+
+
+public class Restaurant {
+
+	private Long id;
+
+    private String name;
+	private String location;
+	private Double rating;
+	private List<MenuItem> menuItems;
+}

@@ -1,0 +1,13 @@
+package com.food.menu.service;
+
+import java.util.List;
+
+import com.food.menu.dto.MenuItemDto;
+import com.food.menu.entity.MenuItem;
+
+public interface IMenuItemService {
+
+	   public MenuItem addMenuItem(MenuItemDto menuItem);
+	    public List<MenuItem> getMenuByRestaurant(Long restaurantId);
+		public MenuItem getMenuByMenuId(Long id);
+}

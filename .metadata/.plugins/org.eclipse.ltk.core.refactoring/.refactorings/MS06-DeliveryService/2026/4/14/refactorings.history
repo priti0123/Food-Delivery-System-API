@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move package &apos;com.food.delivery.dto&apos; to &apos;MS02-RestaurantService/src/main/java/com.food.restaurant.entity&apos;&#x0D;&#x0A;- Original project: &apos;MS06-DeliveryService&apos;&#x0D;&#x0A;- Destination element: &apos;MS02-RestaurantService/src/main/java/com.food.restaurant.entity&apos;&#x0D;&#x0A;- Original element: &apos;MS06-DeliveryService/src/main/java/com.food.delivery.dto&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=MS02-RestaurantService/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.food.restaurant.entity" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.food.delivery.dto" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1775024030256" version="1.0"/>
+</session>

@@ -1,0 +1,34 @@
+package com.notification.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.notification.entity.Notification;
+import com.notification.repository.NotificationRepository;
+
+@Service
+public class NotificationService implements INotificationService {
+	
+	@Autowired
+	private NotificationRepository notiRepo;
+	
+
+	 public void processNotification(Notification notification){
+
+     System.out.println("Sending notification to: " + notification.getEmail());
+     System.out.println("Message: " + notification.getMessage());
+
+ }
+
+	public void sendNotificationToEmail(String msg, String email) {
+		  Notification notification = new Notification();
+		  notification.setEmail(email);
+		  notification.setMessage(msg);
+		  notification.setStatus("Success");
+		  
+		  
+		  notiRepo.save(notification);
+		
+	}
+
+}

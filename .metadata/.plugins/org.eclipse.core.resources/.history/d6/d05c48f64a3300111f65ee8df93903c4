@@ -1,0 +1,76 @@
+package com.food.order.service;
+
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.food.order.client.PaymentClient;
+import com.food.order.client.RestaurantFeignClient;
+import com.food.order.dto.MenuItem;
+import com.food.order.dto.OrderItemRequest;
+import com.food.order.dto.OrderRequest;
+import com.food.order.dto.PaymentRequest;
+import com.food.order.entity.Order;
+import com.food.order.entity.OrderItem;
+import com.food.order.repository.OrderItemRepository;
+import com.food.order.repository.OrderRepository;
+
+@Service
+public class OrderServiceImpl implements IOrderService {
+	
+     @Autowired
+	 private  OrderRepository orderRepository;
+     @Autowired
+	 private  OrderItemRepository orderItemRepository; 
+     @Autowired
+	 private RestaurantFeignClient restaurantClient;
+     
+     @Autowired
+     private PaymentClient payClient;
+
+	
+
+	 public Order createOrder(OrderRequest request){
+
+	  Order order = new Order();
+
+	  order.setUserId(request.getUserId());
+	  order.setOrderStatus("CREATED");
+	  order.setCreatedAt(LocalDateTime.now());
+
+	  double total = 0;
+
+	  Order savedOrder = orderRepository.save(order);
+
+	  for(OrderItemRequest item : request.getItems()){
+
+	   MenuItem menuItem =
+	           restaurantClient.getMenuItem(item.getMenuItemId());
+
+	   OrderItem orderItem = new OrderItem();
+
+	   orderItem.setOrderId(savedOrder.getId());
+	   orderItem.setMenuItemId(menuItem.getId());
+	   orderItem.setQuantity(item.getQuantity());
+	   orderItem.setPrice(menuItem.getPrice());
+
+	   total += menuItem.getPrice() * item.getQuantity();
+
+	   orderItemRepository.save(orderItem);
+	  }
+      
+	  savedOrder.setTotalAmount(total);
+	  
+	  Order saved = orderRepository.save(savedOrder);
+	  
+		/*
+		 * PaymentRequest req = new PaymentRequest(); req.setOrderId(saved.getId());
+		 * req.setAmount(order.getTotalAmount()); req.setPaymentMethod("UPI");
+		 * 
+		 * payClient.processPayment(req);
+		 */
+	  return saved;
+	 }
+
+	}

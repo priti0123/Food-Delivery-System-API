@@ -1,0 +1,40 @@
+package com.food.user.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.food.user.dto.LoginRequest;
+import com.food.user.dto.RegisterRequest;
+import com.food.user.entity.UserEntity;
+import com.food.user.service.IUserServiceMgmt;
+
+@RestController
+@RequestMapping("/users-api")
+public class UserController {
+	
+	@Autowired
+	private IUserServiceMgmt userService;
+	
+	@PostMapping("/register")
+	public ResponseEntity<String> register(@RequestBody RegisterRequest user) {
+		 String msg = userService.registerUser(user);
+		 return  new ResponseEntity<String>(msg , HttpStatus.OK);
+	}
+	
+	 @PostMapping("/login")
+	 public String login(@RequestBody LoginRequest request){
+
+	 return userService.login(request);
+	 }
+    @GetMapping("/findById/{userId}")
+    public UserEntity findById(@PathVariable Integer userId) {
+    	 return userService.findUserByUserId(userId);
+    }
+}

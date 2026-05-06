@@ -1,0 +1,13 @@
+package com.food.menu.service;
+
+import java.util.List;
+
+import com.food.menu.dto.RestaurantDto;
+import com.food.menu.entity.Restaurant;
+
+public interface IRestaurantService {
+
+	public Restaurant addRestaurant(RestaurantDto restaurant);
+    public List<Restaurant> getAllRestaurants();
+    public Restaurant getRestaurant(Long id);
+}

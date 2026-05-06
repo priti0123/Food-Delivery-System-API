@@ -1,0 +1,100 @@
+package com.food.order.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.food.order.client.MenuFeignClient;
+import com.food.order.client.NotificationClient;
+import com.food.order.client.PaymentClient;
+import com.food.order.client.UserFeignClient;
+import com.food.order.dto.MenuItem;
+import com.food.order.dto.OrderDetails;
+import com.food.order.dto.OrderItemRequest;
+import com.food.order.dto.OrderRequest;
+import com.food.order.entity.Order;
+import com.food.order.entity.OrderItem;
+import com.food.order.entity.UserEntity;
+import com.food.order.repository.OrderItemRepository;
+import com.food.order.repository.OrderRepository;
+
+@Service
+public class OrderServiceImpl implements IOrderService {
+	
+     @Autowired
+	 private  OrderRepository orderRepository;
+     @Autowired
+	 private  OrderItemRepository orderItemRepository; 
+     @Autowired
+	 private MenuFeignClient menuClient;
+     @Autowired
+     private NotificationClient notiClient;
+     
+     @Autowired
+     private PaymentClient payClient;
+     @Autowired
+     private UserFeignClient userClient;
+
+	
+
+	 public Order createOrder(OrderRequest request){
+      
+      UserEntity user = userClient.findById(request.getUserId());	
+	  Order order = new Order();
+
+	  order.setUserId(user.getId());
+	  order.setOrderStatus("CREATED");
+	  order.setCreatedAt(LocalDateTime.now());
+
+	  double total = 0;
+
+	  Order savedOrder = orderRepository.save(order);
+
+	  for(OrderItemRequest item : request.getItems()){
+
+	   MenuItem menuItem =
+	                    menuClient.getMenuItem(item.getMenuItemId());
+
+	   OrderItem orderItem = new OrderItem();
+
+	   orderItem.setOrderId(savedOrder.getId());
+	   orderItem.setMenuItemId(menuItem.getId());
+	   orderItem.setQuantity(item.getQuantity());
+	   orderItem.setItemName(menuItem.getName());
+	   orderItem.setPrice(menuItem.getPrice());
+
+	   total += menuItem.getPrice() * item.getQuantity();
+
+	   orderItemRepository.save(orderItem);
+	  }
+      
+	  savedOrder.setTotalAmount(total);
+	  
+	  Order saved = orderRepository.save(savedOrder);
+	  
+		/*
+		 * PaymentRequest req = new PaymentRequest(); req.setOrderId(saved.getId());
+		 * req.setAmount(order.getTotalAmount()); req.setPaymentMethod("UPI");
+		 * 
+		 * payClient.processPayment(req);
+		 */
+	  String msg = "Order Created Successfully";
+	   notiClient.sendNotification(msg ,  user.getEmail());
+	   return saved;
+	 }
+
+	@Override
+	public OrderDetails showAllOrderDetails(Long id) {
+		Order orderEntity = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Order Id"));
+		List<OrderItem>  orderItemList = orderItemRepository.findAllByOrderId(id);
+		
+		OrderDetails orderDetails = new OrderDetails();
+		orderDetails.setOrderid(orderEntity.getId());
+		orderDetails.setUserId(orderEntity.getUserId());
+		orderDetails.setTotalAmount(orderEntity.getTotalAmount());
+		orderDetails.setOrderItems(orderItemList);
+		return orderDetails;
+      }
+   }

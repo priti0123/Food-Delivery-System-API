@@ -1,0 +1,33 @@
+package com.food.order.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderItem {
+
+	@Id
+	 @SequenceGenerator(name="gen42", sequenceName = "ORDER_ITEM_SEQ" , initialValue = 1 , allocationSize = 1)
+	 @GeneratedValue(generator="gen42" , strategy = GenerationType.AUTO)
+ private Long id;
+
+ private Long orderId;
+ 
+ private String itemName;
+
+ private Long menuItemId;
+
+ private Integer quantity;
+
+ private Double price;
+
+}

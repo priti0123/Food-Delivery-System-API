@@ -1,0 +1,23 @@
+package com.notification.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.notification.service.INotificationService;
+
+@RestController
+@RequestMapping("/notification")
+public class NotificationController {
+	
+	@Autowired
+	private INotificationService service;
+	
+	@PostMapping("/send/{msg}/{email}")
+	public String sendNotification(@PathVariable String msg , @PathVariable String email) throws Exception{
+		     return service.sendNotificationToEmail(msg , email);
+	}
+
+}

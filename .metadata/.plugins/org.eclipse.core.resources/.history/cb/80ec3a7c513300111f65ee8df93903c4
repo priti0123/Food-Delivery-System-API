@@ -1,0 +1,14 @@
+package com.food.order.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.food.user.entity.UserEntity;
+
+@FeignClient
+public interface UserFeignClient {
+
+	@GetMapping("/findById/{userId}")
+    public UserEntity findById(@PathVariable Integer userId) ;
+}

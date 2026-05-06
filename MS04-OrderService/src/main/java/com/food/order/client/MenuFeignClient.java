@@ -1,0 +1,16 @@
+package com.food.order.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.food.order.dto.MenuItem;
+
+@FeignClient(name = "MenuService")
+public interface MenuFeignClient  {
+
+	 @GetMapping("/menu-api/findBy/{id}")
+	 MenuItem getMenuItem(@PathVariable Long id);
+
+}

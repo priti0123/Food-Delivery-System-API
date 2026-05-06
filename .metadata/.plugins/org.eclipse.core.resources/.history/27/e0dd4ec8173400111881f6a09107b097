@@ -1,0 +1,64 @@
+package com.notification.service;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+
+import com.notification.entity.Notification;
+import com.notification.repository.NotificationRepository;
+
+import jakarta.mail.internet.MimeMessage;
+
+
+
+@Service
+public class NotificationService implements INotificationService {
+	
+	@Autowired
+	private NotificationRepository notiRepo;
+	
+	@Autowired
+	private JavaMailSender sender;
+	
+	@Value("${spring.mail.username}")
+	private String fromMail;
+	
+	
+
+	 public void processNotification(Notification notification){
+
+     System.out.println("Sending notification to: " + notification.getEmail());
+     System.out.println("Message: " + notification.getMessage());
+
+ }
+
+	public String sendNotificationToEmail(String msg, String email) {
+		  Notification notification = new Notification();
+		  notification.setEmail(email);
+		  notification.setMessage(msg);
+		  notification.setStatus("Success");
+		  
+		  String status = sendMail(msg , email);
+		  notiRepo.save(notification);
+		  return status;
+		
+	}
+	
+	 public String sendMail(String msg , String email) throws Exception{
+		 
+		  MimeMessage message = sender.createMimeMessage();
+		  MimeMessageHelper helper = new MimeMessageHelper(message , true);
+		  helper.setFrom(fromMail);
+		  helper.setCc(email);
+		  helper.setSubject("Order Creation Notification");
+		  helper.setSentDate(new Date());
+		  helper.setText(msg);
+		  sender.send(message);
+		  return "mail Sent";
+	 }
+
+}

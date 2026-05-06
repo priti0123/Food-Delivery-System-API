@@ -1,0 +1,60 @@
+package com.food.menu.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.food.menu.dto.MenuItemDto;
+import com.food.menu.dto.RestaurantDto;
+import com.food.menu.entity.MenuItem;
+import com.food.menu.entity.Restaurant;
+import com.food.menu.repository.MenuItemRepository;
+import com.food.menu.repository.RestaurantRepository;
+
+@Service
+public class MenuItemServiceImpl implements IMenuItemService {
+
+	 @Autowired
+	  private MenuItemRepository menuItemRepository;
+	 
+	 @Autowired
+	 private RestaurantRepository resRepo;
+
+	    public String addMenuItem(MenuItemDto menuDto){
+	    	
+	    	// menu Dto too Entity
+	    	MenuItem menuEntity= new MenuItem();
+	    	BeanUtils.copyProperties(menuDto, menuEntity);
+	    	
+	    	// Restaurant Dto details from menu Dto 
+	    	RestaurantDto resDto = menuDto.getRestaurantDto();
+	    	
+	    	// Check  Restaurant Entity existence
+	    	Restaurant resEntity = resRepo.findById(resDto.getRestaurantId()).orElseThrow(()-> new IllegalArgumentException("invalid Restaurant id"));
+	    	
+	    	// save Restaurant Entity to  Menu Entity
+	    	BeanUtils.copyProperties(resDto, resEntity);
+	    	menuEntity.setRestaurant(resEntity);
+	        Long idVal = menuItemRepository.save(menuEntity).getId();
+	        return  "Menu Item Registered With id Val ::" + idVal;
+	    }
+
+	    public List<MenuItem> getMenuByRestaurant(Long restaurantId){
+	    	
+	    	List<MenuItem> menuEntity = menuItemRepository.findByRestaurantId(restaurantId);
+	    	/*	List<MenuItemDto> menuDto = new ArrayList<>();
+		    *
+			 * menuEntity.forEach(entity -> { MenuItemDto dto = new MenuItemDto();
+			 * BeanUtils.copyProperties(entity, dto); menuDto.add(dto); });
+			 */
+	        return menuEntity;
+	    }
+
+		@Override
+		public MenuItem getMenuByMenuId(Long id) {
+			return menuItemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No menu exist with this id"));
+		}
+}

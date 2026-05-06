@@ -1,0 +1,47 @@
+package com.food.restaurant.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.food.menu.dto.MenuItemDto;
+import com.food.menu.entity.MenuItem;
+import com.food.menu.repository.MenuItemRepository;
+
+@Service
+public class MenuItemServiceImpl implements IMenuItemService {
+
+	 @Autowired
+	  private MenuItemRepository menuItemRepository;
+
+	    public MenuItem addMenuItem(MenuItemDto menuItem){
+	    	MenuItem item = new MenuItem();
+	    	//BeanUtils.copyProperties(menuItem, item);
+	    	item.setName(menuItem.getName());
+	    	item.setPrice(menuItem.getPrice());
+	    	item.setRestaurantId(menuItem.getRestaurantId());
+	    	item.setAvailable(menuItem.getAvailable());
+	    	item.setDescription(menuItem.getDescription());
+	  
+	        return menuItemRepository.save(item);
+	    }
+
+	    public List<MenuItem> getMenuByRestaurant(Long restaurantId){
+	    	
+	    	List<MenuItem> menuEntity = menuItemRepository.findByRestaurantId(restaurantId);
+	    	/*	List<MenuItemDto> menuDto = new ArrayList<>();
+		    *
+			 * menuEntity.forEach(entity -> { MenuItemDto dto = new MenuItemDto();
+			 * BeanUtils.copyProperties(entity, dto); menuDto.add(dto); });
+			 */
+	        return menuEntity;
+	    }
+
+		@Override
+		public MenuItem getMenuByMenuId(Long id) {
+			return menuItemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No menu exist with this id"));
+		}
+}

@@ -1,0 +1,13 @@
+package com.food.order.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@FeignClient("NotificationService")
+public interface NotificationClient {
+	
+	@PostMapping("/send/{msg , email}")
+	public void sendNotification(@PathVariable String msg , @PathVariable String email);
+
+}

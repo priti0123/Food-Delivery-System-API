@@ -1,0 +1,13 @@
+package com.food.order.service;
+
+import com.food.order.dto.OrderDetails;
+import com.food.order.dto.OrderRequest;
+import com.food.order.entity.Order;
+
+public interface IOrderService {
+
+	Order createOrder(OrderRequest request);
+	
+	OrderDetails showAllOrderDetails(Long id);
+
+}

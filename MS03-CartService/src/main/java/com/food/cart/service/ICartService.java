@@ -1,0 +1,15 @@
+package com.food.cart.service;
+
+import java.util.List;
+
+import com.food.cart.dto.CartItemDTO;
+import com.food.cart.dto.MenuItemDTO;
+import com.food.cart.entity.CartItem;
+
+public interface ICartService {
+	
+     	public CartItem addItem(CartItemDTO request);
+		 public List<CartItem> getUserCart(Long userId);
+		 public String removeItem(Long id);
+		 public String clearCart(Long userId);
+}

@@ -1,0 +1,5 @@
+package com.food.menu.entity;
+
+public class Restaurant {
+
+}

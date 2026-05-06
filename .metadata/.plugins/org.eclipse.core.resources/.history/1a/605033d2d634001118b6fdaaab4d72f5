@@ -1,0 +1,55 @@
+spring.application.name=CloudAPIGateway
+
+#  Gateway Port number 
+server.port=9090
+
+#Eureka url
+eureka.client.service-url.default-zone=http://localhost:8761/eureka
+
+# activate all actuators
+management.endpoints.web.exposure.include=*
+
+#Write  API Gateway  Route and  Predicate  info
+
+# configure all microservices
+spring.cloud.gateway.routes[0].id=UserService
+spring.cloud.gateway.routes[0].uri=http://localhost:8081
+spring.cloud.gateway.routes[0].predicates[0]=path=/users-api/**
+
+spring.cloud.gateway.routes[1].id=RestaurantService
+spring.cloud.gateway.routes[1].uri=http://localhost:8082
+spring.cloud.gateway.routes[1].predicates[0]=path=/restaurants-api/**
+
+spring.cloud.gateway.routes[3].id=CartService
+spring.cloud.gateway.routes[3].uri=http://localhost:8083
+spring.cloud.gateway.routes[3].predicates[0]=path=/cart-api/**
+
+spring.cloud.gateway.routes[4].id=OrderService
+spring.cloud.gateway.routes[4].uri=http://localhost:8084
+spring.cloud.gateway.routes[4].predicates[0]=path=/orders-api/**
+
+spring.cloud.gateway.routes[5].id=PaymentsService
+spring.cloud.gateway.routes[5].uri=http://localhost:8085
+spring.cloud.gateway.routes[5].predicates[0]=path=/payment-api/**
+
+spring.cloud.gateway.routes[6].id=DeliveryService
+spring.cloud.gateway.routes[6].uri=http://localhost:8086
+spring.cloud.gateway.routes[6].predicates[0]=path=/delivery-api/**
+
+spring.cloud.gateway.routes[7].id=MenuService
+spring.cloud.gateway.routes[7].uri=http://localhost:8087
+spring.cloud.gateway.routes[7].predicates[0]=path=/menu-api/**
+
+spring.cloud.gateway.routes[8].id=NotificationService
+spring.cloud.gateway.routes[8].uri=http://localhost:8088
+spring.cloud.gateway.routes[8].predicates[0]=path=/notification-api/**
+
+
+# Logging  configurations
+#logging.level.com.nt=DEBUG
+#logging.file.name=d:/apigateway_log3.txt
+
+
+
+
+

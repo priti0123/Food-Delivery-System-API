@@ -1,0 +1,37 @@
+package com.food.order.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.food.order.dto.OrderItemRequest;
+import com.food.order.dto.OrderRequest;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="orders")
+public class Order {
+
+ @Id
+ @SequenceGenerator(name="gen41", sequenceName = "ORDER_SEQ" , initialValue = 1001 , allocationSize = 1)
+ @GeneratedValue(generator="gen41" , strategy = GenerationType.AUTO)
+ private Long id;
+
+ private Integer userId;
+
+ private Double totalAmount;
+
+ private String orderStatus;
+
+
+ private LocalDateTime createdAt;
+
+}

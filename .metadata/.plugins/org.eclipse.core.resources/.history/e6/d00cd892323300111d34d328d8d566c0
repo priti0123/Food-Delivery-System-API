@@ -1,0 +1,37 @@
+package com.food.restaurant.service;
+
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.food.menu.dto.RestaurantDto;
+import com.food.menu.entity.Restaurant;
+import com.food.menu.repository.IRestaurantRepository;
+
+@Service
+public class RestaurantServiceImpl implements IRestaurantService {
+
+	 @Autowired
+    private IRestaurantRepository restaurantRepository;
+
+   
+
+    public Restaurant addRestaurant(RestaurantDto restaurantDto){
+    	Restaurant restaurantEntity = new Restaurant();
+    	BeanUtils.copyProperties(restaurantDto, restaurantEntity);
+        return restaurantRepository.save(restaurantEntity);
+    }
+
+    public List<Restaurant> getAllRestaurants(){
+        return restaurantRepository.findAll();
+    }
+
+    public Restaurant getRestaurant(Long id){
+    	
+        return restaurantRepository.findById(id).orElseThrow();
+    }
+
+}
+
